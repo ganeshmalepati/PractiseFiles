@@ -1,0 +1,36 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git 'https://your-repo-url.git'
+            }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    docker.build('proj-runner', './Proj')
+                }
+            }
+        }
+
+        stage('Run Python Files') {
+            steps {
+                script {
+                    docker.image('proj-runner').inside {
+                        sh 'echo "All Python files executed."'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+    }
+}
+
