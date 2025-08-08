@@ -2,12 +2,6 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/ganeshmalepati/PractiseFiles.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -33,4 +27,3 @@ pipeline {
         }
     }
 }
-
